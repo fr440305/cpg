@@ -86,6 +86,9 @@ ArrNode * arrangement (char * ori_string) {
 
 int main () {
 	ArrNode * arrangement (char * ori_string);
-	arrangement("abcd");
+	char *oristr;
+	printf("Input string:");
+	scanf("%s", oristr);
+	arrangement(oristr);
 	return 0;
 }
