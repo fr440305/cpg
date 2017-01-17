@@ -92,30 +92,22 @@ int arrangement (char *leading, char *entire) {
 	char *entire_next = NULL;
 	int i, j;
 
-	printf("\narrangement(%s, %s)\n", leading, entire);
 	/* check the vaild of parameter*/
+	//printf("\narrangement(%s, %s)\n", leading, entire);
 	if (leading == NULL) leading = (char *) calloc (1, sizeof(char));
 	if (entire == NULL) {
-		printf ("error - entire cannot be -1.");
+		printf ("error - entire cannot be NULL. Ni3 Shi4 Sha2 Dou1 Mei2 Shu1 Ba0?");
 		return (-1);
 	}
 
-	/*index() test */
-	//char *s = "asd";
-	//printf ("%s", strchr(s, 'w'));
-
 	/*transform entire to char_cata; */
-	//printf("\nentire - %s", entire);
 	for (i = 0; i < strlen(entire); i++) {
 		if (strchr(char_cata, entire[i]) == NULL) {
 			/*entire[i] doesn't contains in char_cata */
-			//printf("\nentire[i] - %c", entire[i]);
-			//printf("\nstrlen(cata) - %d", (int)strlen(char_cata));
 			char_cata = (char*) realloc (char_cata, (strlen(char_cata) + 2) * sizeof(char));
 			char_cata[strlen(char_cata)] = entire[i];
 		}
 	}
-	//printf ("\ncata - %s", char_cata);
 	
 	if (strlen(char_cata) != 1) {
 		for (i = 0; i < strlen(char_cata); i++) {
@@ -123,15 +115,11 @@ int arrangement (char *leading, char *entire) {
 			leading_next = strdup(leading);
 			leading_next = (char*) realloc (leading_next, sizeof(char) * (strlen(leading_next) + 3)); 
 			leading_next[strlen(leading_next)] = char_cata[i];
-			/*entire_next = char_cata - char_cata[i]; */
-			entire_next = (char*) calloc (strlen (char_cata), sizeof(char));
-			for (j = 0; j < strlen(char_cata); j++) {
-				if (j < i) {
-					entire_next[j] = char_cata[j];
-				} else {
-					entire_next[j] = char_cata[j+1];
-				}
-			}
+			/*entire_next = entire - char_cata[i]; */
+			entire_next = (char*) calloc (strlen (entire), sizeof(char));
+			for (j = 0; entire[j] != char_cata[i]; j++) entire_next[j] = entire[j];
+			for (j++; j < strlen(entire); j++) entire_next[j - 1] = entire[j];
+			/* recursive */
 			arrangement (leading_next, entire_next);
 		}
 	} else {
@@ -144,17 +132,9 @@ int arrangement (char *leading, char *entire) {
 
 int main () {
 	int arrangement (char *leading, char *entire);
-	return arrangement(NULL, "ass");
-
-	//return arrangement (NULL, "qwerty");
-	
-#if 0
-ArrNode * arrangement (char * ori_string);
-char *oristr;
-printf("Input string:");
-scanf("%s", oristr);
-arrangement(oristr);
-return 0;
-#endif
-	
+	char * str;
+	printf("Input string:");
+	scanf ("%s", str);
+	printf("\n");
+	return arrangement(NULL, str);
 }
