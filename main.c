@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+#if 0
 typedef struct _arr_node{
 	char c;
 	char * entire;
@@ -83,12 +85,37 @@ ArrNode * arrangement (char * ori_string) {
 	free(node);
 	return NULL;
 }
+#endif
+int arrangement (char *leading, char *entire) {
+	char *char_cata = NULL;
+	char *leading_next = NULL;
+	char *entire_next = NULL;
+	int i;
+	/*index() test */
+	char *s = "asd";
+	printf ("%s", strchr(s, 'w'));
+
+	/*transform entire to char_cata; */
+	for (i = 0; entire[i] != 0; i++) {
+		char_cata = (char*) realloc (char_cata, sizeof(char) * (char_cata == NULL ? 0 : (strlen(char_cata)+1)) );
+	}
+
+
+	return 0;
+	
+}
 
 int main () {
-	ArrNode * arrangement (char * ori_string);
-	char *oristr;
-	printf("Input string:");
-	scanf("%s", oristr);
-	arrangement(oristr);
-	return 0;
+	int arrangement (char *leading, char *entire);
+	return arrangement (NULL, NULL);
+	
+#if 0
+ArrNode * arrangement (char * ori_string);
+char *oristr;
+printf("Input string:");
+scanf("%s", oristr);
+arrangement(oristr);
+return 0;
+#endif
+	
 }
