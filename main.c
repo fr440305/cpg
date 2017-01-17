@@ -12,7 +12,7 @@ int arrangement (char *leading, char *entire) {
 	//printf("\narrangement(%s, %s)\n", leading, entire);
 	if (leading == NULL) leading = (char *) calloc (1, sizeof(char));
 	if (entire == NULL) {
-		printf ("error - entire cannot be NULL. Ni3 Shi4 Sha2 Dou1 Mei2 Shu1 Ba0?");
+		printf ("error - entire cannot be NULL.");
 		return (-1);
 	}
 
