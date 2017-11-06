@@ -1,4 +1,4 @@
-// Part II:
+/* Part II: */
 
 #include <stdio.h>
 #include <math.h>
@@ -11,7 +11,7 @@ struct user_input_t {
 	double N;
 };
 
-int getUserInput ();
+int getUserInput (struct user_input_t* input);
 double calculate (int which, double x);
 int writeToFile (struct user_input_t input);
 
@@ -20,7 +20,7 @@ int getUserInput (struct user_input_t* input) {
 	double a;
 	double b;
 	double N;
-	FILE* inputf = fopen("input.dat", "r");
+	FILE* inputf = fopen("input.dat", "r+");
 	
 	if (input == NULL) {
 		fprintf(stderr, "File input.dat does not exist.");
@@ -60,7 +60,7 @@ double calculate (int which, double x) {
 		case 4: return (exp(-x) - 1) / x;
 		case 5: return sin(x) + 0.1 * cos(10 * x);
 	}
-	// default:
+	// error:
 	return 0.0;
 }
 
