@@ -1,4 +1,4 @@
-// Part I:
+/* Part I: */
 
 #include <stdio.h>
 #include <math.h>
