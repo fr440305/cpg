@@ -11,6 +11,10 @@ struct user_input_t {
 	double N;
 };
 
+int getUserInput (struct user_input_t* input);
+double calculate (int which, double x);
+int writeToFile (struct user_input_t input);
+
 int getUserInput (struct user_input_t* input) {
 	int selection;
 	double a;
@@ -86,14 +90,11 @@ int writeToFile (struct user_input_t input) {
 
 int main () {
 	struct user_input_t USER_INPUT;
-	double iter;
-	
 	if (getUserInput(&USER_INPUT) != 0) {
 		return -1;
-	};
-	
+	}
 	if (writeToFile(USER_INPUT) != 0) {
 		return -1;
-	};
+	}
 	return 0;
 }
