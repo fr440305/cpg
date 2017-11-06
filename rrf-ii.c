@@ -5,7 +5,7 @@
 
 
 struct user_input_t {
-	int selection; // 1, 2, 3, 4, 5
+	int selection; /* 1, 2, 3, 4, 5 */
 	double a;
 	double b;
 	double N;
