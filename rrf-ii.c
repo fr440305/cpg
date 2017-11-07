@@ -22,7 +22,7 @@ int getUserInput (struct user_input_t* input) {
 	double N;
 	FILE* inputf = fopen("input.dat", "r+");
 	
-	if (input == NULL) {
+	if (inputf == NULL) {
 		fprintf(stderr, "File input.dat does not exist.");
 		return -1;
 	}
