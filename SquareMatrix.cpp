@@ -68,12 +68,12 @@ bool IsPerfectSquare (unsigned int nbr) {
 // --ctor:
 
 SquareMatrix::SquareMatrix (int rows):
-	rows_(rows),
-	vct_(rows) {}
+rows_(rows),
+vct_(rows) {}
 
 SquareMatrix::SquareMatrix (std::initializer_list<double> lst):
-	vct_(lst),
-	rows_(vct_.size()) {
+vct_(lst),
+rows_(vct_.size()) {
 	if (!IsPerfectSquare(vct_.size())) {
 		throw (std::string(
 			"The length of the initializer_list is not a perfect square"
@@ -82,8 +82,8 @@ SquareMatrix::SquareMatrix (std::initializer_list<double> lst):
 }
 
 SquareMatrix::SquareMatrix (const std::vector<double>& vct, int rows):
-	vct_(vct),
-	rows_(rows) {
+vct_(vct),
+rows_(rows) {
 	if (vct.size() < rows * rows) {
 		throw (std::string(
 			"The length of `vct\' does not match with `rows\'"
