@@ -7,6 +7,7 @@
 #include <vector>
 #include <istream>
 #include <ostream>
+#include <iostream>
 
 class SquareMatrix {
 public:
@@ -57,6 +58,8 @@ public:
 #include <ostream>
 #include <cmath>
 
+bool IsPerfectSquare (unsigned int nbr);
+
 bool IsPerfectSquare (unsigned int nbr) {
 	unsigned int p = static_cast<int>(floor(sqrt(nbr)));
 	return (p * p == nbr);
@@ -71,8 +74,10 @@ SquareMatrix::SquareMatrix (int rows):
 SquareMatrix::SquareMatrix (std::initializer_list<double> lst):
 	vct_(lst),
 	rows_(vct_.size()) {
-	if (! IsPerfectSquare(vct_.size())) {
-		throw ("The length of the initializer_list is not a perfect square");
+	if (!IsPerfectSquare(vct_.size())) {
+		throw (std::string(
+			"The length of the initializer_list is not a perfect square"
+		));
 	}
 }
 
@@ -80,23 +85,24 @@ SquareMatrix::SquareMatrix (const std::vector<double>& vct, int rows):
 	vct_(vct),
 	rows_(rows) {
 	if (vct.size() < rows * rows) {
-		throw ("The length of `vct\' does not match with `rows\'");
+		throw (std::string(
+			"The length of `vct\' does not match with `rows\'"
+		));
 	}
 }
 
-SquareMatrix::SquareMatrix (std::istream ist, int rows) {
-	// ...
+SquareMatrix::SquareMatrix (const std::istream& ist, int rows) {
 }
+
+/*
 
 // --ioop
 std::istream& operator >> (const std::istream& ist, const SquareMatrix& m) {
-	std::string str = "";
-	std::istream& ret = (ist >> str);
-	
-	return ret;
+	double a;
+	return ist >> a;
 }
 std::ostream& operator << (const std::ostream& ost, const SquareMatrix& m) {
-	return ost;
+	return (ost << "SquareMatrix::<<");
 }
 
 // --mxop
@@ -106,6 +112,7 @@ bool SquareMatrix::swap (unsigned int xrow, unsigned int yrow) {
 	}
 	unsigned int tmp;
 	// ...
+	return true;
 }
 
 void SquareMatrix::scale (double scaler, unsigned int row) {
@@ -124,6 +131,8 @@ bool SquareMatrix::operator != (const SquareMatrix& ano) {
 	return !((*this) == ano);
 }
 
+*/
+
 // }} main.cpp {{
 
 
@@ -131,9 +140,13 @@ bool SquareMatrix::operator != (const SquareMatrix& ano) {
 #include <iostream>
 
 int main () {
-	SquareMatrix m = {1, 2, 3, 4};
-	for (int i = 0; i < m.vct_.size(); ++i) {
-		std::cout << m.vct_[i] << std::endl;
+	try {
+		SquareMatrix m1 = {1, 2, 3};
+		SquareMatrix m2 = {1, 2, 3, 4};
+		std::vector<double> v = {10, 9, 8, 7, 6, 5};
+		SquareMatrix m3(v, 2);
+	} catch (std::string& e) {
+		std::cout << e << std::endl;
 	}
 	return 0;
 }
