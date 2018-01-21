@@ -22,6 +22,9 @@ int up (int i) {
 
 void heapify (Heap h, int i) {
 	int tmp;
+	int l = left(i);
+	int r = rt(i);
+	int max; /* the index of the largest-key el */
 #ifdef _HEAP_H_DEBUG_
 	printf("    heapify( h(%d) == ", h.len);
 	for (tmp = 0; tmp < h.len; ++tmp) {
@@ -32,40 +35,16 @@ void heapify (Heap h, int i) {
 	}
 	printf(")...\n");
 #endif
-	/*
-	if (left(i) < h.len && h.arr[left(i)] > h.arr[i]) {
-		swap(h, i, left(i));
-		heapify(h, left(i));
+	if (l < h.len && h.arr[l] > h.arr[i]) {
+		max = l;
 	}
-	if (rt(i) < h.len && h.arr[rt(i)] > h.arr[i]) {
-		swap(h, i, rt(i));
-		heapify(h, rt(i));
+	if (r < h.len && h.arr[r] > h.arr[i]) {
+		max = r;
 	}
-	*/
-	if (left(i) < h.len) {
-		if (rt(i) < h.len) {
-			/* => internal */
-			if (
-				h.arr[left(i)] > h.arr[i] &&
-				h.arr[left(i)] > h.arr[rt(i)]
-			) {
-				swap(h, i, left(i));
-				heapify(h, left(i));
-			} else if (
-				h.arr[rt(i)] > h.arr[i] &&
-				h.arr[rt(i)] > h.arr[left(i)]
-			) {
-				swap(h, i, rt(i));
-				heapify(h, rt(i));
-			}
-		} else {
-			/* left <- i -> NULL => swig */
-			if (h.arr[left(i)] > h.arr[i]) {
-				swap(h, i, left(i));
-				/* left(i) must be a leaf */
-			}
-		}
-	} /* else => leaf */
+	if (max != i) {
+		swap(h, i, max);
+		heapify(h, max);
+	}
 }
 
 int heap_Ini (Heap* h, int* arr, int len) {
