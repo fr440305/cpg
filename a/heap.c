@@ -24,17 +24,7 @@ void heapify (Heap h, int i) {
 	int tmp;
 	int l = left(i);
 	int r = rt(i);
-	int max; /* the index of the largest-key el */
-#ifdef _HEAP_H_DEBUG_
-	printf("    heapify( h(%d) == ", h.len);
-	for (tmp = 0; tmp < h.len; ++tmp) {
-		if (tmp == i) printf("[");
-		printf("%d", h.arr[tmp]);
-		if (tmp == i) printf("]");
-		printf(" ");
-	}
-	printf(")...\n");
-#endif
+	int max; /* index(max { key(i), key(left(i)), key(rt(i)) } ) */
 	if (l < h.len && h.arr[l] > h.arr[i]) {
 		max = l;
 	}
@@ -72,6 +62,10 @@ void heap_Add (Heap* h, int key) {
 	}
 	(h->arr)[h->len] = key;
 	h->len += 1;
+	/* Although we can add a return value to heapify() to check
+	 * whether the swap operation occurs to reduce the amount of
+	 * calling heapify(), but we will not do this since the time
+	 * complexity is still O(n). */
 	for (i = h->len/2; i >= 0; i -= 1) {
 		heapify(*h, i);
 	}
