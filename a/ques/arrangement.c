@@ -2,13 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-int arrangement (char *leading, char *entire) {
+/* decl: */
+int arrangement_1 (char *leading, char *entire);
+
+/* def: */
+int arrangement_1 (char *leading, char *entire) {
 	char *char_cata = (char*) calloc (1, sizeof(char));
 	char *leading_next = NULL;
 	char *entire_next = NULL;
 	int i, j;
 
-	/* check the vaild of parameter*/
+	/* check the vaildation of parameters*/
 	//printf("\narrangement(%s, %s)\n", leading, entire);
 	if (leading == NULL) leading = (char *) calloc (1, sizeof(char));
 	if (entire == NULL) {
@@ -36,7 +40,7 @@ int arrangement (char *leading, char *entire) {
 			for (j = 0; entire[j] != char_cata[i]; j++) entire_next[j] = entire[j];
 			for (j++; j < strlen(entire); j++) entire_next[j - 1] = entire[j];
 			/* recursive */
-			arrangement (leading_next, entire_next);
+			arrangement_1 (leading_next, entire_next);
 		}
 	} else {
 		printf ("%s%s\n", leading, entire);
@@ -46,11 +50,20 @@ int arrangement (char *leading, char *entire) {
 	
 }
 
+#if 0
+int arrangement_2(char* input, char* output) {
+	int i;
+	if (strlen(input) == 0) {
+		printf(output);
+		return;
+	}
+}
+#endif
+
 int main () {
-	int arrangement (char *leading, char *entire);
 	char * str;
 	printf("Input string:");
 	scanf ("%s", str);
 	printf("\n");
-	return arrangement(NULL, str);
+	return arrangement_1(NULL, str);
 }
