@@ -1,26 +1,17 @@
 #include <stdio.h>
 
 int searchInsert(int* nums, int numsSize, int target) {
-	int off = 0;
-	int len = numsSize;
-	int mid;
-	int odd;
+	int lo = 0, hi = numsSize - 1, mid;
 
-	if (numsSize == 0)
-		return 0;
-
-	while (len > 1) {
-		mid = off + len / 2;
-		odd = len % 2;
-		if (nums[mid] == target)
+	while (mid = (lo + hi) / 2, lo <= hi)
+		if (nums[mid] == target) /* base case */
 			return mid;
 		else if (nums[mid] < target)
-			off = mid + odd;
+			lo = mid + 1;
+		else
+			hi = mid - 1;
 
-		len /= 2;
-	}
-
-	return off + (target > nums[off]);
+	return lo; /* empty list */
 }
 
 int main() {
