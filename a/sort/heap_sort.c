@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "heap.h"
+/* #include "heap.h" */
 
 void swap (Heap h, int i, int j) {
 	int tmp = h.arr[i];
