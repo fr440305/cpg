@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* @par tmp
- * The capacity of []tmp is equal to
- * the length of the original array */
 void merge(int* arr, int* tmp, int lo, int mid, int hi) {
 	int i = lo, j = mid+1, k;
 
@@ -38,6 +35,9 @@ void merge_sort_top_down_helper(int* arr, int* tmp, int lo, int hi) {
 /* pub */
 
 void merge_sort_top_down(int* arr, int len) {
+	/* ANSI C does not support VLA,
+	 * although most of the C compilers
+	 * allow us to do so. */
 	int* tmp = (int*) malloc(sizeof(int) * len);
 
 	merge_sort_top_down_helper(arr, tmp, 0, len-1);
@@ -45,12 +45,21 @@ void merge_sort_top_down(int* arr, int len) {
 }
 
 void merge_sort_bottom_up(int* arr, int len) {
+	int* tmp = (int*) malloc(sizeof(int) * len);
+	int lo; /* sub array index */
+	int sz; /* sub array size */
+
+	for (sz = 1; sz < len; sz *= 2)
+		for (lo = 0; lo < len-sz; lo += 2*sz)
+			merge(arr, tmp, lo, lo+sz-1, (lo+sz+sz-1 < len-1) ? (lo+sz+sz-1) : (len-1));
+
+	free(tmp);
 }
 
 int main() {
 	int a[5] = {5, 4, 3, 2, 1};
 
-	merge_sort_top_down(a, 5);
+	merge_sort_bottom_up(a, 5);
 
 	for (int i = 0; i < 5; i++)
 		printf("%d ", a[i]);
