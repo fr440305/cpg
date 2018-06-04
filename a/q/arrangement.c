@@ -50,16 +50,6 @@ int arrangement_1 (char *leading, char *entire) {
 	
 }
 
-#if 0
-int arrangement_2(char* input, char* output) {
-	int i;
-	if (strlen(input) == 0) {
-		printf(output);
-		return;
-	}
-}
-#endif
-
 int main () {
 	char * str;
 	printf("Input string:");
