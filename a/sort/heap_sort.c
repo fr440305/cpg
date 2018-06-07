@@ -1,14 +1,5 @@
 #include <stdio.h>
 
-
-// 0 1 2 3 4 5
-// 6 4 3 6 5 3
-
-//     6
-//  6     3
-// 4 5   3
-
-//
 void swap(int* arr, int i, int j) {
     int tmp = arr[i];
     arr[i] = arr[j];
@@ -16,53 +7,44 @@ void swap(int* arr, int i, int j) {
 }
 
 void build(int* arr, int len) {
-    int i;
-    int left;
-    int right;
-    /* swim (bottom-up fixing) */
-    for (i = len/2 - 1; i >= 0; --i) {
-        left = 2 * i + 1;
-        right = 2 * i + 2;
-        if (left < len && arr[left] > arr[i])
-            swap(arr, i, left);
-        if (right < len && arr[right] > arr[i])
-            swap(arr, i, right);
+    int top, left, right;
+    /* bottom-up fixing: */
+    for (top = len/2 - 1; top >= 0; --top) {
+        left = 2 * top + 1;
+        right = left + 1;
+        if (left < len && arr[left] > arr[top])
+            swap(arr, top, left);
+        if (right < len && arr[right] > arr[top])
+            swap(arr, top, right);
     }
 }
 
-void pop_and_fix(int* arr, int len) {
-    int root, left, right, max;
+void pop_all(int* arr, int len) {
+    int top, left, right, max;
 
     while (len > 0) {
-        /* pop: */
+        /* pop the max element: */
         swap(arr, 0, len-1);
         len -= 1;
-        /* fix: */
-        root = 0;
-        while (root < len) {
-            max = root;
-            left = 2 * root + 1;
-            right = 2 * root + 2;
-            if (left < len && arr[left] > arr[root])
+        /* top-down fixing: */
+        for (top = max = 0; top < len;) {
+            left = 2 * top + 1;
+            right = left + 1;
+            if (left < len && arr[left] > arr[top])
                 max = left;
             if (right < len && arr[right] > arr[max])
                 max = right;
-            if (max == left) {
-                swap(arr, root, left);
-                root = left;
-            } else if (max == right) {
-                swap(arr, root, right);
-                root = right;
-            } else {
+            if (max != left && max != right)
                 break;
-            }
+            swap(arr, top, max);
+            top = max;
         }
     }
 }
 
 void heap_sort(int* arr, int len) {
     build(arr, len);
-    pop_and_fix(arr, len);
+    pop_all(arr, len);
 }
 
 int main() {
