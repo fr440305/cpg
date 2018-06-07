@@ -1,4 +1,4 @@
-/* Copyright (C) github.com:linux/lib/sort.c */
+/* github.com : linux/lib/sort.c */
 
 #include "sort.h"
 
@@ -8,8 +8,7 @@ void swap(int* arr, int i, int j) {
     arr[j] = tmp;
 }
 
-/* top-down_fixing, aka heapify */
-void heapify(int* heap, int len, int idx) {
+void sink(int* heap, int len, int idx) {
     int sinker, child;
 
     for (sinker = idx; (child = 2 * sinker + 1) < len; sinker = child) {
@@ -25,9 +24,8 @@ void build(int* arr, int len) {
     int swimmer;
 
     /* bottom-up fixing for root: */
-    for (swimmer = len/2 - 1; swimmer >= 0; --swimmer) {
-        heapify(arr, len, swimmer);
-    }
+    for (swimmer = len/2 - 1; swimmer >= 0; --swimmer)
+        sink(arr, len, swimmer);
 }
 
 void pop_all(int* heap, int len) {
@@ -36,7 +34,7 @@ void pop_all(int* heap, int len) {
         swap(heap, 0, len-1);
         len -= 1;
         /* top-down fixing: */
-        heapify(heap, len, 0);
+        sink(heap, len, 0);
     }
 }
 
@@ -54,10 +52,10 @@ void heap_sort(int* arr, int len) {
 
 int main() {
     int arr[10] = {0, 9, 1, 8, 3, 2, 7, 4, 5, 6};
+
     build(arr, 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
         printf("%d ", arr[i]);
-    }
 
     return 0;
 }
