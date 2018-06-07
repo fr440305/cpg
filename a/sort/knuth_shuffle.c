@@ -5,7 +5,7 @@ void knuth_shuffle(int* ret, int len) {
 	int tmp;
 
 	for (i = 0; i < len; i++)
-        ret[i] = i;
+		ret[i] = i;
 	for (i = len-1; i >= 0; i--) {
 		j = rand() % len;
 		tmp = ret[i];
