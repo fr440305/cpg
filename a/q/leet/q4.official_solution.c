@@ -1,4 +1,4 @@
-/* findMedianSortedArrays() - with time complexity O(log2[n]) and space complexity O(1)
+/* findMedianSortedArrays - with time complexity O(log[n]) and space complexity O(1)
  * @av The first array
  * @ac The length of the first array
  *

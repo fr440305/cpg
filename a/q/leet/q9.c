@@ -2,12 +2,10 @@
 #include <stdio.h>
 
 bool isPalindrome(int x) {
-	long ori = x;
-	long rev = 0;
+	long ori = x, rev = 0;
 
 	if (ori < 0)
 		return false;
-
 	while (x != 0) {
 		rev *= 10;
 		rev += x % 10;
