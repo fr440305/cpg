@@ -27,7 +27,8 @@ void pop_all(int* arr, int len) {
         swap(arr, 0, len-1);
         len -= 1;
         /* top-down fixing: */
-        for (top = max = 0; top < len;) {
+        top = max = 0;
+        while (top < len) {
             left = 2 * top + 1;
             right = left + 1;
             if (left < len && arr[left] > arr[top])
