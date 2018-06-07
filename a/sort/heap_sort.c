@@ -8,6 +8,7 @@ void swap(int* arr, int i, int j) {
 
 void build(int* arr, int len) {
     int top, left, right;
+
     /* bottom-up fixing: */
     for (top = len/2 - 1; top >= 0; --top) {
         left = 2 * top + 1;
