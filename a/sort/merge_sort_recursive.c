@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int* merge(int* av, int ac, int* bv, int bc) {
+static int* merge(int* av, int ac, int* bv, int bc) {
 	/* two-finger algorithm */
 	int ai = 0, bi = 0;
 	int* res = (int*) malloc(sizeof(int) * (ac + bc));
@@ -53,15 +53,3 @@ void merge_sort_recursive(int* arr, int len) {
 	free(mem);
 	free(res);
 }
-
-int main() {
-	int arr[7] = {1, 2, 5, 4, 6, 7, 9};
-	int i;
-
-	merge_sort_recursive(arr, 7);
-	for (i = 0; i < 7; i++)
-		printf("%d ", arr[i]);
-
-	return 0;
-}
-

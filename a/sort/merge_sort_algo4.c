@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void merge(int* arr, int* tmp, int lo, int mid, int hi) {
+static void merge(int* arr, int* tmp, int lo, int mid, int hi) {
 	int i = lo, j = mid+1, k;
 
 	/* copy from arr to tmp */
@@ -56,13 +56,3 @@ void merge_sort_bottom_up(int* arr, int len) {
 	free(tmp);
 }
 
-int main() {
-	int a[5] = {5, 4, 3, 2, 1};
-
-	merge_sort_bottom_up(a, 5);
-
-	for (int i = 0; i < 5; i++)
-		printf("%d ", a[i]);
-
-	return 0;
-}

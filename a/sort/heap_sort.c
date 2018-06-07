@@ -1,4 +1,6 @@
-#include <stdio.h>
+/* Copyright (C) github.com:linux/lib/sort.c */
+
+#include "sort.h"
 
 void swap(int* arr, int i, int j) {
     int tmp = arr[i];
@@ -6,41 +8,35 @@ void swap(int* arr, int i, int j) {
     arr[j] = tmp;
 }
 
-void build(int* arr, int len) {
-    int top, left, right;
+/* top-down_fixing, aka heapify */
+void heapify(int* heap, int len, int idx) {
+    int sinker, child;
 
-    /* bottom-up fixing: */
-    for (top = len/2 - 1; top >= 0; --top) {
-        left = 2 * top + 1;
-        right = left + 1;
-        if (left < len && arr[left] > arr[top])
-            swap(arr, top, left);
-        if (right < len && arr[right] > arr[top])
-            swap(arr, top, right);
+    for (sinker = idx; (child = 2 * sinker + 1) < len; sinker = child) {
+        if (child+1 < len && heap[child] < heap[child+1])
+            child += 1;
+        if (heap[sinker] >= heap[child])
+            break;
+        swap(heap, sinker, child);
     }
 }
 
-void pop_all(int* arr, int len) {
-    int top, left, right, max;
+void build(int* arr, int len) {
+    int swimmer;
 
+    /* bottom-up fixing for root: */
+    for (swimmer = len/2 - 1; swimmer >= 0; --swimmer) {
+        heapify(arr, len, swimmer);
+    }
+}
+
+void pop_all(int* heap, int len) {
     while (len > 0) {
         /* pop the max element: */
-        swap(arr, 0, len-1);
+        swap(heap, 0, len-1);
         len -= 1;
         /* top-down fixing: */
-        top = max = 0;
-        while (top < len) {
-            left = 2 * top + 1;
-            right = left + 1;
-            if (left < len && arr[left] > arr[top])
-                max = left;
-            if (right < len && arr[right] > arr[max])
-                max = right;
-            if (max != left && max != right)
-                break;
-            swap(arr, top, max);
-            top = max;
-        }
+        heapify(heap, len, 0);
     }
 }
 
@@ -49,13 +45,20 @@ void heap_sort(int* arr, int len) {
     pop_all(arr, len);
 }
 
-int main() {
-    int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    int i;
+//#define HEAP_SORT_DEBUG_
 
-    heap_sort(arr, 9);
-    for (i = 0; i < 9; i++)
+#ifdef HEAP_SORT_DEBUG_
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int arr[10] = {0, 9, 1, 8, 3, 2, 7, 4, 5, 6};
+    build(arr, 10);
+    for (int i = 0; i < 10; i++) {
         printf("%d ", arr[i]);
+    }
 
     return 0;
 }
+#endif

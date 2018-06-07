@@ -25,16 +25,3 @@ void binary_insertion_sort(int* arr, int len) {
 		}
 	}
 }
-
-int main() {
-	int a[5] = {5, 4, 3, 2, 1};
-	int i;
-
-	binary_insertion_sort(a, 5);
-	for (i = 0; i < 5; i++) {
-		printf("%d, ", a[i]);
-	}
-
-	return 0;
-}
-
