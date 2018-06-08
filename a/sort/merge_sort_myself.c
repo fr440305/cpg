@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sort.h"
+
 static int *merge(int *av, int ac, int *bv, int bc) {
 	/* two-finger algorithm */
 	int ai = 0, bi = 0;
@@ -27,7 +29,7 @@ static int *merge(int *av, int ac, int *bv, int bc) {
 	return res;
 }
 
-int *merge_sort_recursive_helper(int *arr, int len) {
+static int *merge_sort_recursive_helper(int *arr, int len) {
 	int mid = len / 2;
 	int *l;
 	int *r;
@@ -53,4 +55,7 @@ void merge_sort_recursive(int *arr, int len) {
 
 	free(mem);
 	free(res);
+}
+
+void merge_sort_loop(int* arr, int len) {
 }
