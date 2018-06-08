@@ -1,4 +1,13 @@
-/* github.com : linux/lib/sort.c */
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * A fast, small, non-recursive O(nlog n) sort for the Linux kernel
+ *
+ * Jan 23 2005  Matt Mackall <mpm@selenic.com>
+ */
+
+/* I read the source code of `linux/lib/sort.c`
+ * for learing the C implementation
+ * of heap sort. */
 
 #include "sort.h"
 
@@ -9,31 +18,29 @@ void swap(int* arr, int i, int j) {
 }
 
 void sink(int* heap, int len, int idx) {
-	int sinker, child;
+	int sinker = idx, child;
 
-	for (sinker = idx; (child = 2 * sinker + 1) < len; sinker = child) {
+	while ((child = 2 * sinker + 1) < len) {
 		if (child+1 < len && heap[child] < heap[child+1])
 			child += 1;
 		if (heap[sinker] >= heap[child])
 			break;
 		swap(heap, sinker, child);
+		sinker = child; /* sink */
 	}
 }
 
 void build(int* arr, int len) {
 	int swimmer;
 
-	/* bottom-up fixing for root: */
 	for (swimmer = len/2 - 1; swimmer >= 0; --swimmer)
 		sink(arr, len, swimmer);
 }
 
 void pop_all(int* heap, int len) {
 	while (len > 0) {
-		/* pop the max element: */
 		swap(heap, 0, len-1);
 		len -= 1;
-		/* top-down fixing: */
 		sink(heap, len, 0);
 	}
 }
@@ -59,4 +66,5 @@ int main() {
 
 	return 0;
 }
+
 #endif
